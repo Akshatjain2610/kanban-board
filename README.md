@@ -31,3 +31,12 @@ kanban-board/
 │   ├── domUtils.js    # Utility functions for DOM
 │   ├── dragDrop.js    # Drag & drop functionality
 │   └── storage.js     # Local storage wrapper
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/kanban-board.git
+cd kanban-board
