@@ -21,21 +21,13 @@ It helps you manage tasks visually across three stages: **To Do**, **In Progress
 ---
 
 ## 📂 Project Structure
+```yaml
 kanban-board/
-│── index.html # Main UI structure
-│── styles.css # Styles for board & tasks
+│── index.html         # Main UI structure
+│── styles.css         # Styles for board & tasks
 │── js/
-│ ├── app.js # Entry point, initializes TaskManager
-│ ├── taskManager.js# Handles task CRUD & rendering
-│ ├── domUtils.js # Utility functions for DOM
-│ ├── dragDrop.js # Drag & drop functionality
-│ └── storage.js # Local storage wrapper
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/your-username/kanban-board.git
-cd kanban-board
+│   ├── app.js         # Entry point, initializes TaskManager
+│   ├── taskManager.js # Handles task CRUD & rendering
+│   ├── domUtils.js    # Utility functions for DOM
+│   ├── dragDrop.js    # Drag & drop functionality
+│   └── storage.js     # Local storage wrapper
