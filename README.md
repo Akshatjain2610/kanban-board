@@ -10,6 +10,11 @@ It helps you manage tasks visually across three stages: **To Do**, **In Progress
 
 ---
 
+## 🌍 Live Demo
+👉 [View the Kanban Board](https://akshatjain2610.github.io/kanban-board/)
+
+---
+
 ## ✨ Features
 - ➕ **Add Tasks** with title & description  
 - ✏️ **Edit & Delete Tasks**  
