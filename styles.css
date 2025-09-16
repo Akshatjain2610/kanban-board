@@ -11,6 +11,7 @@ body {
   gap: 10px;
   margin-bottom: 20px;
   justify-content: center;
+  flex-wrap: wrap; /* ✅ allow wrapping on small screens */
 }
 
 .task-form input {
@@ -175,4 +176,52 @@ body {
 
 .success-msg.hidden {
   display: none;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 1024px) {
+  .board {
+    flex-wrap: wrap; /* allow 2 columns per row */
+  }
+  .column {
+    width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .board {
+    flex-direction: column; /* stack vertically */
+  }
+  .column {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 15px;
+  }
+
+  .task-form input {
+    width: 100%; /* full width for inputs */
+  }
+
+  .task-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  .task-card {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .task-card button {
+    padding: 3px 6px;
+    font-size: 0.75rem;
+  }
 }
