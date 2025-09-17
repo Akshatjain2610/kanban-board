@@ -5,8 +5,12 @@ export class TaskManager {
     constructor() {
         this.tasks = storage.loadTasks();
         this.taskToDelete = null;
+        this.searchQuery = ''; // ✅ store search query for filtering
     }
 
+    // ------------------------
+    // Add a new task
+    // ------------------------
     addTask(title, description) {
         const task = { id: Date.now().toString(), title, description, status: 'todo' };
         this.tasks.push(task);
@@ -14,6 +18,9 @@ export class TaskManager {
         this.showSuccess('Task added successfully!');
     }
 
+    // ------------------------
+    // Move task to new status
+    // ------------------------
     moveTask(id, newStatus) {
         const task = this.tasks.find(t => t.id === id);
         if (task) {
@@ -22,6 +29,9 @@ export class TaskManager {
         }
     }
 
+    // ------------------------
+    // Edit a task
+    // ------------------------
     editTask(id, newTitle, newDescription) {
         const task = this.tasks.find(t => t.id === id);
         if (task) {
@@ -32,17 +42,26 @@ export class TaskManager {
         }
     }
 
+    // ------------------------
+    // Delete a task
+    // ------------------------
     deleteTask(id) {
         this.tasks = this.tasks.filter(t => t.id !== id);
         this.saveAndRender();
         this.showSuccess('Task deleted successfully!');
     }
 
+    // ------------------------
+    // Save tasks to storage and render
+    // ------------------------
     saveAndRender() {
         storage.saveTasks(this.tasks);
         this.renderTasks();
     }
 
+    // ------------------------
+    // Show temporary success message
+    // ------------------------
     showSuccess(message) {
         const msgEl = document.getElementById('success-msg');
         msgEl.textContent = message;
@@ -50,14 +69,24 @@ export class TaskManager {
         setTimeout(() => msgEl.classList.add('hidden'), 2000);
     }
 
+    // ------------------------
+    // Render tasks
+    // ------------------------
     renderTasks() {
         ['todo', 'inprogress', 'done'].forEach(status => {
             const container = document.getElementById(`${status}-list`);
             container.innerHTML = '';
 
-            const filteredTasks = this.tasks.filter(task => task.status === status);
+            // ✅ Filter by status and search query
+            const filteredTasks = this.tasks.filter(task => {
+                const matchesStatus = task.status === status;
+                const matchesSearch =
+                    task.title.toLowerCase().includes(this.searchQuery) ||
+                    task.description.toLowerCase().includes(this.searchQuery);
+                return matchesStatus && matchesSearch;
+            });
 
-            // Render tasks
+            // Render each task
             filteredTasks.forEach(task => {
                 const card = createTaskCard(
                     task,
@@ -67,7 +96,7 @@ export class TaskManager {
                 container.appendChild(card);
             });
 
-            // ✅ Update count for this column
+            // Update task count
             const column = container.closest('.column');
             const countEl = column.querySelector('.task-count');
             if (countEl) {
@@ -76,6 +105,9 @@ export class TaskManager {
         });
     }
 
+    // ------------------------
+    // Edit task modal
+    // ------------------------
     onEdit(task) {
         const modal = document.getElementById('edit-modal');
         const editTitle = document.getElementById('edit-title');
@@ -112,6 +144,9 @@ export class TaskManager {
         cancelBtn.addEventListener('click', handleCancel);
     }
 
+    // ------------------------
+    // Delete task modal
+    // ------------------------
     onDelete(taskId) {
         this.taskToDelete = taskId;
         const modal = document.getElementById('delete-modal');
